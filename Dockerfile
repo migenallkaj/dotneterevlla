@@ -4,27 +4,16 @@ FROM ubuntu:latest
 # Set the working directory
 WORKDIR /app
 
-# Copy the project files into the container
-COPY . ./
+# Copy your project files into the container
+COPY . .
 
-# Restore and build the application
-RUN dotnet restore
-RUN dotnet build -c Release --no-restore
+# Install any necessary dependencies
+RUN apt-get update && \
+    apt-get install -y <your-package-name> && \
+    rm -rf /var/lib/apt/lists/*
 
-# Publish the application
-RUN dotnet publish -c Release -o out --no-restore
+# Specify the entry point command or CMD
 
-# Runtime image
-FROM ubuntu:latest
 
-# Set the working directory
-WORKDIR /app
-
-# Copy the published output from the build stage
-COPY --from=build /app/out ./
-
-# Expose the desired port
-EXPOSE 80
-
-# Specify the entry point command
-ENTRYPOINT ["dotnet", "YourApp.dll"]
+# Example command for a .NET application
+# CMD [ "dotnet", "YourApp.dll" ]
