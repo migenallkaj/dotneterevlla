@@ -1,5 +1,5 @@
 # Base image
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM ubuntu:latest
 
 # Set the working directory
 WORKDIR /app
@@ -15,7 +15,7 @@ RUN dotnet build -c Release --no-restore
 RUN dotnet publish -c Release -o out --no-restore
 
 # Runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM ubuntu:latest
 
 # Set the working directory
 WORKDIR /app
