@@ -8,7 +8,8 @@ WORKDIR /app
 COPY . .
 
 # Install any necessary dependencies
-RUN apt-get update && 
+RUN sed -i 's/archive.ubuntu.com/mirror.example.com/g' /etc/apt/sources.list
+
 
 # Specify the entry point command or CMD
 
